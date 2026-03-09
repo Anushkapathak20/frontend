@@ -1,0 +1,15 @@
+{
+  "flat": "A101",
+  "currentMonth": "March",
+  "status": "Pending",
+  "pendingAmount": 1500,
+  "payments": [
+    { "month": "January", "amount": 1500, "status": "Paid" },
+    { "month": "February", "amount": 1500, "status": "Paid" },
+    { "month": "March", "amount": 1500, "status": "Pending" }
+  ],
+  "notifications": [
+    "Maintenance payment due for March",
+    "Society meeting on 25 March"
+  ]
+}

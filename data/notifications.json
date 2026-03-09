@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "title": "Payment Reminder",
+    "message": "Maintenance payment due for February",
+    "month": "February",
+    "type": "Reminder",
+    "target": "All Residents",
+    "time": "2026-03-06 10:00 AM"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "totalFlats": 120,
+  "totalCollected": 250000,
+  "pendingPayments": 15,
+  "monthlyCollection": [
+    { "month": "Jan", "amount": 20000 },
+    { "month": "Feb", "amount": 25000 },
+    { "month": "Mar", "amount": 22000 },
+    { "month": "Apr", "amount": 28000 }
+  ]
+}

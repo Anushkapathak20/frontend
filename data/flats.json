@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "flat": "A101",
+    "owner": "Rahul Sharma",
+    "email": "rahul@gmail.com",
+    "phone": "9876543210",
+    "type": "2BHK"
+  },
+  {
+    "id": 2,
+    "flat": "A102",
+    "owner": "Amit Verma",
+    "email": "amit@gmail.com",
+    "phone": "9876543211",
+    "type": "3BHK"
+  }
+]

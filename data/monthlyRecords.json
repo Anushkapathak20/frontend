@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "flat": "A101",
+    "owner": "Rahul Sharma",
+    "month": "March",
+    "amount": 1500,
+    "status": "Paid"
+  },
+  {
+    "id": 2,
+    "flat": "A102",
+    "owner": "Amit Verma",
+    "month": "March",
+    "amount": 1500,
+    "status": "Pending"
+  },
+  {
+    "id": 3,
+    "flat": "A103",
+    "owner": "Priya Singh",
+    "month": "March",
+    "amount": 1500,
+    "status": "Pending"
+  }
+]

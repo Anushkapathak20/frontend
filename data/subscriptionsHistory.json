@@ -1,0 +1,20 @@
+[
+  {
+    "month": "January",
+    "amount": 1500,
+    "status": "Paid",
+    "mode": "UPI"
+  },
+  {
+    "month": "February",
+    "amount": 1500,
+    "status": "Paid",
+    "mode": "Cash"
+  },
+  {
+    "month": "March",
+    "amount": 1500,
+    "status": "Pending",
+    "mode": "-"
+  }
+]

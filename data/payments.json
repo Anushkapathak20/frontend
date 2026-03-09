@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "transactionId": "TXN1001",
+    "flat": "A101",
+    "month": "March",
+    "amount": 1500,
+    "mode": "Cash",
+    "date": "12-03-2026",
+    "notes": "Paid at office"
+  },
+  {
+    "id": 2,
+    "transactionId": "TXN1002",
+    "flat": "A102",
+    "month": "March",
+    "amount": 1500,
+    "mode": "UPI",
+    "date": "14-03-2026",
+    "notes": "UPI transfer"
+  }
+]

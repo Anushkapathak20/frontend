@@ -1,0 +1,7 @@
+[
+  { "flat": "A101", "month": "January", "year": 2026, "amount": 1500, "status": "Paid", "mode": "Cash" },
+  { "flat": "A102", "month": "January", "year": 2026, "amount": 1500, "status": "Pending", "mode": "UPI" },
+  { "flat": "A103", "month": "February", "year": 2026, "amount": 1500, "status": "Paid", "mode": "UPI" },
+  { "flat": "A104", "month": "February", "year": 2026, "amount": 1500, "status": "Paid", "mode": "Cash" },
+  { "flat": "A105", "month": "March", "year": 2026, "amount": 1500, "status": "Paid", "mode": "UPI" }
+]

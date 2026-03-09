@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "type": "1BHK",
+    "amount": 1000
+  },
+  {
+    "id": 2,
+    "type": "2BHK",
+    "amount": 1500
+  },
+  {
+    "id": 3,
+    "type": "3BHK",
+    "amount": 1800
+  }
+]
