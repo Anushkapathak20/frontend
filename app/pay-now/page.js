@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import jsPDF from "jspdf"
+import autoTable from "jspdf-autotable"
 import data from "@/data/paymentDetails.json"
 import UserLayout from "../layout-user"
 
@@ -17,14 +18,28 @@ export default function PayNow() {
   }
 
   const downloadReceipt = () => {
+
     const doc = new jsPDF()
-    doc.text("Society Payment Receipt", 20, 20)
-    doc.text(`Flat: ${data.flat}`, 20, 40)
-    doc.text(`Month: ${data.month}`, 20, 50)
-    doc.text(`Amount: ₹${data.amount}`, 20, 60)
-    doc.text(`Payment Method: ${method}`, 20, 70)
-    doc.text(`Transaction ID: ${transactionId}`, 20, 80)
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 90)
+  
+    doc.setFontSize(18)
+    doc.text("Society Payment Receipt", 14, 20)
+  
+    const tableData = [
+      ["Flat", data.flat],
+      ["Month", data.month],
+      ["Amount", `Rs. ${data.amount}`],
+      ["Payment Method", method],
+      ["Transaction ID", transactionId],
+      ["Date", new Date().toLocaleDateString()]
+    ]
+  
+    autoTable(doc, {
+      startY: 30,
+      head: [["Field", "Details"]],
+      body: tableData,
+      theme: "grid",
+    })
+  
     doc.save("receipt.pdf")
   }
 
@@ -84,7 +99,7 @@ export default function PayNow() {
                 </p>
                 <p className="text-slate-600">
                   <span className="font-medium text-slate-900">Amount:</span>{" "}
-                  ₹{data.amount}
+                  Rs. {data.amount}
                 </p>
                 <p className="text-slate-600">
                   <span className="font-medium text-slate-900">Method:</span>{" "}
