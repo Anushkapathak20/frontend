@@ -3,119 +3,113 @@
 import data from "@/data/userDashboard.json"
 import UserLayout from "../layout-user"
 
-export default function Dashboard(){
+export default function Dashboard() {
+  return (
+    <UserLayout>
+      <div>
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold text-slate-900">
+            Resident Dashboard
+          </h1>
+          <p className="text-slate-500 mt-1">Your subscription overview</p>
+        </div>
 
- return(
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <h2 className="text-sm font-medium text-slate-500">Flat</h2>
+            <p className="text-xl font-bold text-slate-900 mt-2">{data.flat}</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <h2 className="text-sm font-medium text-slate-500">
+              Current Month
+            </h2>
+            <p className="text-xl font-bold text-slate-900 mt-2">
+              {data.currentMonth}
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <h2 className="text-sm font-medium text-slate-500">
+              Pending Amount
+            </h2>
+            <p className="text-xl font-bold text-rose-600 mt-2">
+              ₹{data.pendingAmount}
+            </p>
+          </div>
+        </div>
 
-  <UserLayout>
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+          <h2 className="text-lg font-semibold text-slate-900 mb-2">
+            Current Subscription Status
+          </h2>
+          <p
+            className={`font-bold ${
+              data.status === "Paid" ? "text-emerald-600" : "text-rose-600"
+            }`}
+          >
+            {data.status}
+          </p>
+        </div>
 
-   <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">
+            Payment History
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-slate-200">
+                  <th className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider py-3 px-4">
+                    Month
+                  </th>
+                  <th className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider py-3 px-4">
+                    Amount
+                  </th>
+                  <th className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider py-3 px-4">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {data.payments.map((p, i) => (
+                  <tr key={i} className="hover:bg-slate-50/50">
+                    <td className="py-3 px-4 text-sm text-slate-700">
+                      {p.month}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-slate-700">
+                      ₹{p.amount}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span
+                        className={
+                          p.status === "Paid"
+                            ? "text-emerald-600 font-medium"
+                            : "text-rose-600 font-medium"
+                        }
+                      >
+                        {p.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-    <h1 className="text-2xl font-bold mb-6">
-     Resident Dashboard
-    </h1>
-
-    {/* Summary Cards */}
-
-    <div className="grid grid-cols-3 gap-6 mb-8">
-
-     <div className="bg-white p-6 rounded shadow">
-      <h2 className="text-gray-500">Flat</h2>
-      <p className="text-xl font-bold">{data.flat}</p>
-     </div>
-
-     <div className="bg-white p-6 rounded shadow">
-      <h2 className="text-gray-500">Current Month</h2>
-      <p className="text-xl font-bold">{data.currentMonth}</p>
-     </div>
-
-     <div className="bg-white p-6 rounded shadow">
-      <h2 className="text-gray-500">Pending Amount</h2>
-      <p className="text-xl font-bold text-red-500">
-        ₹{data.pendingAmount}
-      </p>
-     </div>
-
-    </div>
-
-    {/* Current Status */}
-
-    <div className="bg-white p-6 rounded shadow mb-8">
-
-     <h2 className="text-lg font-semibold mb-2">
-       Current Subscription Status
-     </h2>
-
-     <p className={`font-bold ${data.status === "Paid" ? "text-green-600":"text-red-500"}`}>
-       {data.status}
-     </p>
-
-    </div>
-
-    {/* Payment History */}
-
-    <div className="bg-white p-6 rounded shadow mb-8">
-
-     <h2 className="text-lg font-semibold mb-4">
-       Payment History
-     </h2>
-
-     <table className="w-full">
-
-      <thead>
-       <tr className="border-b">
-        <th className="p-2">Month</th>
-        <th className="p-2">Amount</th>
-        <th className="p-2">Status</th>
-       </tr>
-      </thead>
-
-      <tbody>
-
-       {data.payments.map((p,i)=>(
-
-        <tr key={i} className="border-b">
-
-         <td className="p-2">{p.month}</td>
-         <td className="p-2">₹{p.amount}</td>
-         <td className="p-2">
-          <span className={p.status==="Paid" ? "text-green-600":"text-red-500"}>
-            {p.status}
-          </span>
-         </td>
-
-        </tr>
-
-       ))}
-
-      </tbody>
-
-     </table>
-
-    </div>
-
-    {/* Notifications */}
-
-    <div className="bg-white p-6 rounded shadow">
-
-     <h2 className="text-lg font-semibold mb-4">
-       Notifications
-     </h2>
-
-     <ul className="list-disc pl-6">
-
-      {data.notifications.map((n,i)=>(
-        <li key={i}>{n}</li>
-      ))}
-
-     </ul>
-
-    </div>
-
-   </div>
-
-  </UserLayout>
-
- )
-
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">
+            Notifications
+          </h2>
+          <ul className="space-y-2 text-slate-600">
+            {data.notifications.map((n, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-teal-500 mt-1">•</span>
+                <span>{n}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </UserLayout>
+  )
 }

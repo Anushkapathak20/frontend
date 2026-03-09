@@ -6,6 +6,14 @@
     { "month": "Jan", "amount": 20000 },
     { "month": "Feb", "amount": 25000 },
     { "month": "Mar", "amount": 22000 },
-    { "month": "Apr", "amount": 28000 }
+    { "month": "Apr", "amount": 28000 },
+    { "month": "May", "amount": 28000 },
+    { "month": "Jun", "amount": 28000 },
+    { "month": "Jul", "amount": 28000 },
+    { "month": "Aug", "amount": 28000 },
+    { "month": "Sep", "amount": 28000 },
+    { "month": "Oct", "amount": 28000 },
+    { "month": "Nov", "amount": 28000 },
+    { "month": "Dec", "amount": 28000 }
   ]
 }

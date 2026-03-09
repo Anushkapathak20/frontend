@@ -24,21 +24,21 @@ export default function Chart({data}){
   labels: data.map(d=>d.month),
   datasets:[
    {
-    label:"Monthly Collection (₹)",
-    data:data.map(d=>d.amount),
-    backgroundColor:"#3b82f6",
-    borderRadius:6
+    label: "Monthly Collection (₹)",
+    data: data.map((d) => d.amount),
+    backgroundColor: "#0d9488",
+    borderRadius: 6
    }
   ]
  }
 
  const options = {
-  plugins:{
-   legend:{
-    display:true
-   }
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+   legend: { display: true }
   }
  }
 
- return <Bar data={chartData} options={options}/>
+ return <Bar data={chartData} options={options} height={400} />
 }

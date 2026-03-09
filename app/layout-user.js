@@ -4,18 +4,11 @@ export default function UserLayout({ children }) {
 
  return(
 
-  <div className="flex">
-
-   {/* Sidebar */}
-
+  <div className="flex min-h-screen bg-slate-50">
    <UserSidebar/>
-
-   {/* Page Content */}
-
-   <main className="flex-1 p-6 bg-gray-100 min-h-screen">
+   <main className="flex-1 p-6">
      {children}
    </main>
-
   </div>
 
  )
