@@ -1,18 +1,24 @@
 [
   {
-    "id": 1,
-    "flat": "A101",
-    "owner": "Rahul Sharma",
+    "flat_id": "f1",
+    "flat_number": "A101",
+    "flat_type": "2BHK",
+    "resident_id": "u1",
+    "full_name": "Rahul Sharma",
     "email": "rahul@gmail.com",
-    "phone": "9876543210",
-    "type": "2BHK"
+    "phone_number": "9876543210",
+    "is_active": true,
+    "is_visible": true
   },
   {
-    "id": 2,
-    "flat": "A102",
-    "owner": "Amit Verma",
+    "flat_id": "f2",
+    "flat_number": "A102",
+    "flat_type": "3BHK",
+    "resident_id": "u2",
+    "full_name": "Amit Verma",
     "email": "amit@gmail.com",
-    "phone": "9876543211",
-    "type": "3BHK"
+    "phone_number": "9876543211",
+    "is_active": true,
+    "is_visible": true
   }
 ]

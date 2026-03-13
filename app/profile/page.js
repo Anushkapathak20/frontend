@@ -7,7 +7,7 @@ import UserLayout from "../layout-user"
 
 export default function Profile() {
   const router = useRouter()
-  const [phone, setPhone] = useState(data.phone)
+  const [phone_number, setPhone_number] = useState(data.phone_number)
   const [currentPassword, setCurrentPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
 
@@ -35,7 +35,7 @@ export default function Profile() {
       <div>
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-slate-900">My Profile</h1>
-          <p className="text-slate-500 mt-1">Manage your account</p>
+          <p className="text-slate-500 mt-1">Manage your account (users table)</p>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8">
@@ -43,7 +43,8 @@ export default function Profile() {
             Profile Details
           </h2>
           <p className="text-slate-600 mb-2">
-            <span className="font-medium text-slate-900">Name:</span> {data.name}
+            <span className="font-medium text-slate-900">Full Name:</span>{" "}
+            {data.full_name}
           </p>
           <p className="text-slate-600 mb-4">
             <span className="font-medium text-slate-900">Email:</span>{" "}
@@ -52,9 +53,9 @@ export default function Profile() {
           <form onSubmit={updateProfile} className="flex flex-wrap gap-3">
             <input
               type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone"
+              value={phone_number}
+              onChange={(e) => setPhone_number(e.target.value)}
+              placeholder="Phone Number"
               className={`${inputClass} flex-1 min-w-[200px]`}
             />
             <button

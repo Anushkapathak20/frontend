@@ -1,5 +1,6 @@
 {
-  "flat": "A101",
-  "month": "March",
-  "amount": 1500
+  "record_id": "r1",
+  "flat_number": "A101",
+  "billing_month": "March",
+  "amount_due": 1500
 }

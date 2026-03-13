@@ -1,52 +1,128 @@
 "use client"
 
-import { useState } from "react"
-import flatsData from "@/data/flats.json"
+import { useEffect, useState } from "react"
+// import flatsData from "@/data/flats.json"
 import { FaSearch, FaPlus, FaEdit, FaTrash } from "react-icons/fa"
 
 export default function Flats() {
-  const [flats, setFlats] = useState(flatsData)
+  const [flats, setFlats] = useState([]);
   const [search, setSearch] = useState("")
   const [showModal, setShowModal] = useState(false)
+  const [editingFlat, setEditingFlat] = useState(null)
 
   const [form, setForm] = useState({
-    flat: "",
-    owner: "",
+    flat_number: "",
+    owner_name: "",
     email: "",
-    phone: "",
-    type: "",
+    phone_number: "",
+    flat_type: "",
   })
 
   const filteredFlats = flats.filter((f) =>
-    f.owner.toLowerCase().includes(search.toLowerCase())
+    f.owner_name?.toLowerCase().includes(search.toLowerCase())
   )
 
-  const deleteFlat = (id) => {
-    setFlats(flats.filter((f) => f.id !== id))
+  const deleteFlat = async (flat_id) => {
+
+  await fetch(`http://localhost:5000/api/flats/${flat_id}`, {
+    method: "DELETE"
+  })
+
+  fetchFlats()
+
+}
+
+ const handleSubmit = async (e) => {
+
+  e.preventDefault()
+
+  try {
+
+    let url = "http://localhost:5000/api/flats"
+    let method = "POST"
+
+    if (editingFlat) {
+      url = `http://localhost:5000/api/flats/${editingFlat.flat_id}`
+      method = "PUT"
+    }
+
+    const res = await fetch(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        flat_number: form.flat_number,
+        owner_name: form.owner_name,
+        email: form.email,
+        phone_number: form.phone_number,
+        flat_type: form.flat_type
+      })
+    })
+
+    const data = await res.json()
+
+    if (data.success) {
+      fetchFlats()
+    }
+
+    setEditingFlat(null)
+    setShowModal(false)
+
+    setForm({
+  flat_number: "",
+  owner_name: "",
+  email: "",
+  phone_number: "",
+  flat_type: ""
+})
+
+  } catch (error) {
+
+    console.error("Error saving flat", error)
+
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const newFlat = { id: Date.now(), ...form }
-    setFlats([...flats, newFlat])
-    setShowModal(false)
-    setForm({ flat: "", owner: "", email: "", phone: "", type: "" })
+}
+
+  const fetchFlats = async () => {
+
+    try {
+
+      const res = await fetch("http://localhost:5000/api/flats")
+      const data = await res.json()
+
+      setFlats(data.data)
+
+    } catch (error) {
+
+      console.error("Error fetching flats", error)
+
+    }
+
   }
+
+  useEffect(() => {
+
+    fetchFlats()
+
+  }, [])
 
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-slate-900">Flats Management</h1>
+        <h1 className="text-2xl font-semibold text-slate-900">
+          Flats Management
+        </h1>
         <p className="text-slate-500 mt-1">View and manage all society flats</p>
       </div>
 
-      {/* Search + Add */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1 max-w-md">
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Search by owner name..."
+            placeholder="Search by resident name..."
             className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -61,7 +137,6 @@ export default function Flats() {
         </button>
       </div>
 
-      {/* Table */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -89,30 +164,45 @@ export default function Flats() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filteredFlats.map((f) => (
-                <tr key={f.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={f.flat_id} className="hover:bg-slate-50/50 transition-colors">
                   <td className="px-6 py-4 text-sm font-medium text-slate-900">
-                    {f.flat}
+                    {f.flat_number}
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-700">{f.owner}</td>
+                  <td className="px-6 py-4 text-sm text-slate-700">
+                    {f.owner_name}
+                  </td>
                   <td className="px-6 py-4 text-sm text-slate-600">{f.email}</td>
-                  <td className="px-6 py-4 text-sm text-slate-600">{f.phone}</td>
+                  <td className="px-6 py-4 text-sm text-slate-600">
+                    {f.phone_number}
+                  </td>
                   <td className="px-6 py-4">
                     <span className="inline-flex px-2.5 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-700">
-                      {f.type}
+                      {f.flat_type}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
+<button
+  type="button"
+  onClick={() => {
+    setEditingFlat(f)
+    setForm({
+      flat_number: f.flat_number,
+      owner_name: f.owner_name,
+      email: f.email,
+      phone_number: f.phone_number,
+      flat_type: f.flat_type
+    })
+    setShowModal(true)
+  }}
+  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-amber-700 bg-amber-50 rounded-lg hover:bg-amber-100 transition-colors"
+>
+  <FaEdit className="w-3.5 h-3.5" />
+  Edit
+</button>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-amber-700 bg-amber-50 rounded-lg hover:bg-amber-100 transition-colors"
-                      >
-                        <FaEdit className="w-3.5 h-3.5" />
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => deleteFlat(f.id)}
+                        onClick={() => deleteFlat(f.flat_id)}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-red-700 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
                       >
                         <FaTrash className="w-3.5 h-3.5" />
@@ -127,7 +217,6 @@ export default function Flats() {
         </div>
       </div>
 
-      {/* Modal */}
       {showModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm"
@@ -144,14 +233,18 @@ export default function Flats() {
               <input
                 placeholder="Flat Number"
                 className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                value={form.flat}
-                onChange={(e) => setForm({ ...form, flat: e.target.value })}
+                value={form.flat_number}
+                onChange={(e) =>
+                  setForm({ ...form, flat_number: e.target.value })
+                }
               />
               <input
                 placeholder="Owner Name"
                 className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                value={form.owner}
-                onChange={(e) => setForm({ ...form, owner: e.target.value })}
+                value={form.owner_name}
+                onChange={(e) =>
+                  setForm({ ...form, owner_name: e.target.value })
+                }
               />
               <input
                 type="email"
@@ -161,16 +254,20 @@ export default function Flats() {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
               <input
-                placeholder="Phone"
+                placeholder="Phone Number"
                 className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                value={form.phone_number}
+                onChange={(e) =>
+                  setForm({ ...form, phone_number: e.target.value })
+                }
               />
               <input
                 placeholder="Flat Type (e.g. 2BHK)"
                 className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                value={form.type}
-                onChange={(e) => setForm({ ...form, type: e.target.value })}
+                value={form.flat_type}
+                onChange={(e) =>
+                  setForm({ ...form, flat_type: e.target.value })
+                }
               />
               <div className="flex justify-end gap-3 pt-2">
                 <button

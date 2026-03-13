@@ -1,5 +1,7 @@
 {
-  "name": "Rahul Sharma",
+  "user_id": "u1",
+  "full_name": "Rahul Sharma",
   "email": "rahul@gmail.com",
-  "phone": "9876543210"
+  "phone_number": "9876543210",
+  "role": "resident"
 }

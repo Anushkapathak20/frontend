@@ -1,26 +1,32 @@
 [
   {
-    "id": 1,
-    "flat": "A101",
-    "owner": "Rahul Sharma",
-    "month": "March",
-    "amount": 1500,
-    "status": "Paid"
+    "record_id": "r1",
+    "flat_id": "f1",
+    "flat_number": "A101",
+    "full_name": "Rahul Sharma",
+    "billing_month": "2026-03-01",
+    "amount_due": 1500,
+    "status": "Paid",
+    "created_at": "2026-03-01T00:00:00Z"
   },
   {
-    "id": 2,
-    "flat": "A102",
-    "owner": "Amit Verma",
-    "month": "April",
-    "amount": 1500,
-    "status": "Pending"
+    "record_id": "r2",
+    "flat_id": "f2",
+    "flat_number": "A102",
+    "full_name": "Amit Verma",
+    "billing_month": "2026-04-01",
+    "amount_due": 1500,
+    "status": "Pending",
+    "created_at": "2026-04-01T00:00:00Z"
   },
   {
-    "id": 3,
-    "flat": "A103",
-    "owner": "Priya Singh",
-    "month": "March",
-    "amount": 1500,
-    "status": "Pending"
+    "record_id": "r3",
+    "flat_id": "f1",
+    "flat_number": "A103",
+    "full_name": "Priya Singh",
+    "billing_month": "2026-03-01",
+    "amount_due": 1500,
+    "status": "Pending",
+    "created_at": "2026-03-01T00:00:00Z"
   }
 ]

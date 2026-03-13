@@ -4,9 +4,9 @@ import { useState } from "react"
 import profileData from "@/data/adminProfile.json"
 
 export default function AdminProfile() {
-  const [name, setName] = useState(profileData.name)
+  const [full_name, setFull_name] = useState(profileData.full_name)
   const [email, setEmail] = useState(profileData.email)
-  const [phone, setPhone] = useState(profileData.phone)
+  const [phone_number, setPhone_number] = useState(profileData.phone_number)
   const [password, setPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
 
@@ -26,8 +26,12 @@ export default function AdminProfile() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-slate-900">Admin Profile</h1>
-        <p className="text-slate-500 mt-1">Manage your account settings</p>
+        <h1 className="text-2xl font-semibold text-slate-900">
+          Admin Profile
+        </h1>
+        <p className="text-slate-500 mt-1">
+          Manage your account (users table)
+        </p>
       </div>
 
       <form
@@ -40,9 +44,9 @@ export default function AdminProfile() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
+            value={full_name}
+            onChange={(e) => setFull_name(e.target.value)}
+            placeholder="Full Name"
             className={inputClass}
           />
           <input
@@ -54,9 +58,9 @@ export default function AdminProfile() {
           />
           <input
             type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone"
+            value={phone_number}
+            onChange={(e) => setPhone_number(e.target.value)}
+            placeholder="Phone Number"
             className={inputClass}
           />
         </div>

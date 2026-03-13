@@ -1,17 +1,23 @@
 [
   {
-    "id": 1,
-    "type": "1BHK",
-    "amount": 1000
+    "plan_id": 1,
+    "flat_type": "1BHK",
+    "monthly_rate": 1000,
+    "effective_from": "2025-01-01",
+    "updated_at": "2025-01-01T00:00:00Z"
   },
   {
-    "id": 2,
-    "type": "2BHK",
-    "amount": 1500
+    "plan_id": 2,
+    "flat_type": "2BHK",
+    "monthly_rate": 1500,
+    "effective_from": "2025-01-01",
+    "updated_at": "2025-01-01T00:00:00Z"
   },
   {
-    "id": 3,
-    "type": "3BHK",
-    "amount": 1800
+    "plan_id": 3,
+    "flat_type": "3BHK",
+    "monthly_rate": 1800,
+    "effective_from": "2025-01-01",
+    "updated_at": "2025-01-01T00:00:00Z"
   }
 ]

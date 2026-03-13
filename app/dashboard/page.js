@@ -1,9 +1,37 @@
 "use client"
 
-import data from "@/data/userDashboard.json"
+import { useEffect, useState } from "react"
 import UserLayout from "../layout-user"
-
+import formatMonth from "@/utils/formatMonth.js";
 export default function Dashboard() {
+
+  const [data, setData] = useState(null)
+  const [payments, setPayments] = useState([])
+
+  useEffect(() => {
+
+    const storedUser = localStorage.getItem("residentUser")
+
+    if (!storedUser) return
+
+    const user = JSON.parse(storedUser)
+
+    console.log("Fetching dashboard data for:", user)
+
+    fetch(`http://localhost:5000/api/resident/dashboard?email=${user.email}`)
+      .then(res => res.json())
+      .then(res => {
+         console.log("API response:", res)
+         if (!res.success) {
+           console.error("Dashboard API error:", res.error)
+           return
+         }
+         setData(res.summary ?? null)  // summary uses current real-world month
+         setPayments(res.data ?? [])   // payment history table
+      })
+      .catch(err => console.error("Error fetching dashboard data:", err))
+
+  }, [])
   return (
     <UserLayout>
       <div>
@@ -11,28 +39,32 @@ export default function Dashboard() {
           <h1 className="text-2xl font-semibold text-slate-900">
             Resident Dashboard
           </h1>
-          <p className="text-slate-500 mt-1">Your subscription overview</p>
+          <p className="text-slate-500 mt-1">
+            Your subscription overview (flats + monthly_records + payments)
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
             <h2 className="text-sm font-medium text-slate-500">Flat</h2>
-            <p className="text-xl font-bold text-slate-900 mt-2">{data.flat}</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h2 className="text-sm font-medium text-slate-500">
-              Current Month
-            </h2>
             <p className="text-xl font-bold text-slate-900 mt-2">
-              {data.currentMonth}
+              {data?.flat_number}
             </p>
           </div>
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
             <h2 className="text-sm font-medium text-slate-500">
-              Pending Amount
+              Billing Month
+            </h2>
+            <p className="text-xl font-bold text-slate-900 mt-2">
+              {formatMonth(data?.billing_month)}
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <h2 className="text-sm font-medium text-slate-500">
+              Amount Due
             </h2>
             <p className="text-xl font-bold text-rose-600 mt-2">
-              ₹{data.pendingAmount}
+              {data?.amount_due != null ? `₹${data.amount_due}` : "-"}
             </p>
           </div>
         </div>
@@ -43,10 +75,10 @@ export default function Dashboard() {
           </h2>
           <p
             className={`font-bold ${
-              data.status === "Paid" ? "text-emerald-600" : "text-rose-600"
+              data?.status === "Paid" ? "text-emerald-600" : "text-rose-600"
             }`}
           >
-            {data.status}
+            {data?.status}
           </p>
         </div>
 
@@ -59,10 +91,10 @@ export default function Dashboard() {
               <thead>
                 <tr className="border-b border-slate-200">
                   <th className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider py-3 px-4">
-                    Month
+                    Billing Month
                   </th>
                   <th className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider py-3 px-4">
-                    Amount
+                    Amount Paid
                   </th>
                   <th className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider py-3 px-4">
                     Status
@@ -70,23 +102,23 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {data.payments.map((p, i) => (
+                {payments.map((p, i) => (
                   <tr key={i} className="hover:bg-slate-50/50">
                     <td className="py-3 px-4 text-sm text-slate-700">
-                      {p.month}
+                      {formatMonth(p?.billing_month)}
                     </td>
                     <td className="py-3 px-4 text-sm text-slate-700">
-                      ₹{p.amount}
+                      {p?.amount_paid != null ? `₹${p.amount_paid}` : "-"}
                     </td>
                     <td className="py-3 px-4">
                       <span
                         className={
-                          p.status === "Paid"
+                          p?.status === "Paid"
                             ? "text-emerald-600 font-medium"
                             : "text-rose-600 font-medium"
                         }
                       >
-                        {p.status}
+                        {p?.status}
                       </span>
                     </td>
                   </tr>
@@ -101,10 +133,12 @@ export default function Dashboard() {
             Notifications
           </h2>
           <ul className="space-y-2 text-slate-600">
-            {data.notifications.map((n, i) => (
+            {data?.notifications?.map((n, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span className="text-teal-500 mt-1">•</span>
-                <span>{n}</span>
+                <span>
+                  <strong>{n?.title}:</strong> {n?.message}
+                </span>
               </li>
             ))}
           </ul>

@@ -1,20 +1,26 @@
 [
   {
-    "month": "January",
-    "amount": 1500,
+    "record_id": "r1",
+    "billing_month": "January",
+    "amount_paid": 1500,
     "status": "Paid",
-    "mode": "UPI"
+    "payment_mode": "UPI",
+    "receipt_url": null
   },
   {
-    "month": "February",
-    "amount": 1500,
+    "record_id": "r2",
+    "billing_month": "February",
+    "amount_paid": 1500,
     "status": "Paid",
-    "mode": "Cash"
+    "payment_mode": "Cash",
+    "receipt_url": null
   },
   {
-    "month": "March",
-    "amount": 1500,
+    "record_id": "r3",
+    "billing_month": "March",
+    "amount_paid": 1500,
     "status": "Pending",
-    "mode": "-"
+    "payment_mode": null,
+    "receipt_url": null
   }
 ]

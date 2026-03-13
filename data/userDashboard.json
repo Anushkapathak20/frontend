@@ -1,15 +1,16 @@
 {
-  "flat": "A101",
-  "currentMonth": "March",
+  "flat_number": "A101",
+  "flat_id": "f1",
+  "billing_month": "March",
   "status": "Pending",
-  "pendingAmount": 1500,
+  "amount_due": 1500,
   "payments": [
-    { "month": "January", "amount": 1500, "status": "Paid" },
-    { "month": "February", "amount": 1500, "status": "Paid" },
-    { "month": "March", "amount": 1500, "status": "Pending" }
+    { "billing_month": "January", "amount_paid": 1500, "status": "Paid" },
+    { "billing_month": "February", "amount_paid": 1500, "status": "Paid" },
+    { "billing_month": "March", "amount_paid": 1500, "status": "Pending" }
   ],
   "notifications": [
-    "Maintenance payment due for March",
-    "Society meeting on 25 March"
+    { "title": "Payment Reminder", "message": "Maintenance payment due for March" },
+    { "title": "Society Notice", "message": "Society meeting on 25 March" }
   ]
 }

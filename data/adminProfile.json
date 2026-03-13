@@ -1,5 +1,7 @@
 {
-  "name": "Admin User",
+  "user_id": "admin1",
+  "full_name": "Admin User",
   "email": "admin@gmail.com",
-  "phone": "9876543210"
+  "phone_number": "9876543210",
+  "role": "admin"
 }
